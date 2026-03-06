@@ -13,7 +13,7 @@
 # limitations under the License.
 from inference_perf.apis import InferenceAPIData, LazyLoadInferenceAPIData
 from inference_perf.utils.custom_tokenizer import CustomTokenizer
-from inference_perf.config import APIConfig, APIType, DataConfig, Distribution, SharedPrefix
+from inference_perf.config import APIConfig, APIType, DataConfig, Distribution, SharedPrefix, Chat
 from abc import ABC, abstractmethod
 from typing import Generator, Optional, List
 
@@ -25,6 +25,7 @@ class DataGenerator(ABC):
     input_distribution: Optional[Distribution]
     output_distribution: Optional[Distribution]
     shared_prefix: Optional[SharedPrefix]
+    chat: Optional[Chat]
     tokenizer: Optional[CustomTokenizer]
 
     """Abstract base class for data generators."""
@@ -48,6 +49,7 @@ class DataGenerator(ABC):
         self.input_distribution = config.input_distribution
         self.output_distribution = config.output_distribution
         self.shared_prefix = config.shared_prefix
+        self.chat = config.chat
         self.trace = config.trace
 
     @abstractmethod

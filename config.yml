@@ -1,25 +1,33 @@
 load:
   type: constant
   stages:
-  - rate: 1
-    duration: 30
+  - rate: 20
+    duration: 300
+  - rate: 20
+    duration: 600
 api: 
   type: completion
   streaming: true
 server:
   type: vllm
-  model_name: HuggingFaceTB/SmolLM2-135M-Instruct
-  base_url: http://0.0.0.0:8000
+  model_name: meta-llama/Llama-3.1-8B-Instruct
+  base_url: http://10.64.3.11:80
   ignore_eos: true
 tokenizer:
-  pretrained_model_name_or_path: HuggingFaceTB/SmolLM2-135M-Instruct
+  pretrained_model_name_or_path: meta-llama/Llama-3.1-8B-Instruct
 data:
-  type: shareGPT
+  type: chat
+  chat:
+    num_chats: 1024
+    num_messages_per_chat: 128
+    message_len: 256
+    output_len: 256
 metrics:
   type: prometheus
   prometheus:
     url: http://localhost:9090
     scrape_interval: 15
+    google_managed: true
 report:
   request_lifecycle:
     summary: true

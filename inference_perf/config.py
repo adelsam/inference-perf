@@ -53,6 +53,7 @@ class DataGenType(Enum):
     Synthetic = "synthetic"
     Random = "random"
     SharedPrefix = "shared_prefix"
+    Chat = "chat"
     CNNDailyMail = "cnn_dailymail"
     InfinityInstruct = "infinity_instruct"
     BillsumConversations = "billsum_conversations"
@@ -91,6 +92,13 @@ class SharedPrefix(BaseModel):
     enable_multi_turn_chat: bool = False
 
 
+class Chat(BaseModel):
+    num_chats: int = 10
+    num_messages_per_chat: int = 10
+    message_len: int = 50
+    output_len: int = 50
+
+
 class DataConfig(BaseModel):
     type: DataGenType = DataGenType.Mock
 
@@ -101,6 +109,7 @@ class DataConfig(BaseModel):
     input_distribution: Optional[Distribution] = None
     output_distribution: Optional[Distribution] = None
     shared_prefix: Optional[SharedPrefix] = None
+    chat: Optional[Chat] = None
 
     # Trace file is only supported for random dataset at this moment
     trace: Optional[TraceConfig] = None

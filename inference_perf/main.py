@@ -36,6 +36,7 @@ from inference_perf.datagen import (
     CNNDailyMailDataGenerator,
     InfinityInstructDataGenerator,
     BillsumConversationsDataGenerator,
+    ChatDataGenerator,
 )
 from inference_perf.client.modelserver import (
     ModelServerClient,
@@ -253,6 +254,7 @@ def main_cli() -> None:
                 DataGenType.CNNDailyMail,
                 DataGenType.InfinityInstruct,
                 DataGenType.BillsumConversations,
+                DataGenType.Chat,
             }
         ):
             if tokenizer is None:
@@ -288,6 +290,9 @@ def main_cli() -> None:
         if config.data.type == DataGenType.SharedPrefix and config.data.shared_prefix is None:
             raise Exception(f"{config.data.type.value} data generator requires 'shared_prefix' to be configured")
 
+        if config.data.type == DataGenType.Chat and config.data.chat is None:
+            raise Exception(f"{config.data.type.value} data generator requires 'chat' to be configured")
+
         if config.data.type == DataGenType.ShareGPT:
             datagen = HFShareGPTDataGenerator(config.api, config.data, tokenizer)
         elif config.data.type == DataGenType.CNNDailyMail:
@@ -302,6 +307,8 @@ def main_cli() -> None:
             datagen = InfinityInstructDataGenerator(config.api, config.data, tokenizer)
         elif config.data.type == DataGenType.BillsumConversations:
             datagen = BillsumConversationsDataGenerator(config.api, config.data, tokenizer)
+        elif config.data.type == DataGenType.Chat:
+            datagen = ChatDataGenerator(config.api, config.data, tokenizer)
         else:
             datagen = MockDataGenerator(config.api, config.data, tokenizer)
     else:
