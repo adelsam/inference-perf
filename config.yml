@@ -25,7 +25,6 @@ data:
 metrics:
   type: prometheus
   prometheus:
-    url: http://localhost:9090
     scrape_interval: 15
     google_managed: true
 report:
