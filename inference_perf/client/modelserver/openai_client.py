@@ -160,7 +160,8 @@ class openAIModelServerClientSession(ModelServerClientSession):
             ignore_eos=self.client.ignore_eos,
             streaming=self.client.api_config.streaming,
         )
-        payload["stream_options"] = {"include_usage": True}
+        if payload.get("stream"):
+            payload["stream_options"] = {"include_usage": True}
         headers = {"Content-Type": "application/json"}
 
         if self.client.api_key:
