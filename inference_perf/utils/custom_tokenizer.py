@@ -29,8 +29,8 @@ class CustomTokenizer:
         # Some tokenizers don't set model_max_length which defaults to VERY_LARGE_INTEGER.
         # Prevent overflow and log spam by skipping truncation.
         if self.tokenizer.model_max_length == VERY_LARGE_INTEGER:
-            return len(self.tokenizer(text).input_ids)
-        return len(self.tokenizer(text, truncation=True, max_length=self.tokenizer.model_max_length).input_ids)
+            return len(self.tokenizer(text, add_special_tokens=False).input_ids)
+        return len(self.tokenizer(text, truncation=True, max_length=self.tokenizer.model_max_length, add_special_tokens=False).input_ids)
 
     def get_tokenizer(self) -> PreTrainedTokenizerBase:
         return self.tokenizer

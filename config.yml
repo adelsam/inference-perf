@@ -23,7 +23,7 @@ data:
   type: chat
   chat:
     num_chats: 1024
-    num_messages_per_chat: 127
+    num_messages_per_chat: 120
     message_len: 256
     output_len: 256
 metrics:
