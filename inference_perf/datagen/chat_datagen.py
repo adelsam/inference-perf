@@ -83,11 +83,10 @@ class ChatDataGenerator(DataGenerator):
 
         for _ in range(self.num_chats):
             full_chat_token_ids = self._generate_random_token_ids(self.num_messages_per_chat * self.message_len)
-            full_chat_text = hf_tokenizer.decode(full_chat_token_ids, skip_special_tokens=True)
 
             for j in range(1, self.num_messages_per_chat + 1):
-                prefix_length = (len(full_chat_text) * j // self.num_messages_per_chat)
-                chat_prefix = full_chat_text[:prefix_length]
+                prefix_token_ids = full_chat_token_ids[: j * self.message_len]
+                chat_prefix = hf_tokenizer.decode(prefix_token_ids, skip_special_tokens=True)
                 self.prompts.append(chat_prefix)
 
         random.shuffle(self.prompts)

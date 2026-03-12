@@ -14,16 +14,16 @@ api:
     Content-Type: "application/json"
 server:
   type: vllm
-  model_name: meta-llama/Llama-3.1-8B-Instruct
-  base_url: http://10.64.3.11:80
+  model_name: Qwen/Qwen2.5-1.5B-Instruct
+  base_url: http://10.64.3.22:80
   ignore_eos: true
 tokenizer:
-  pretrained_model_name_or_path: meta-llama/Llama-3.1-8B-Instruct
+  pretrained_model_name_or_path: Qwen/Qwen2.5-1.5B-Instruct
 data:
   type: chat
   chat:
     num_chats: 1024
-    num_messages_per_chat: 128
+    num_messages_per_chat: 127
     message_len: 256
     output_len: 256
 metrics:
